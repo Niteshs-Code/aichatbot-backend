@@ -26,7 +26,7 @@ app.use("/api/conversation", conversationRoute);
 app.use(passport.initialize());
 
 app.get("/", (req, res) => {
-  res.send("AI Backend Running perfectly ");
+  res.send("AI Backend Running perfectly url has been updated");
 });
 
 
