@@ -144,7 +144,7 @@ export const verifyEmail = async (req, res) => {
      await sendWelcomeEmail(user.email, user.name);
     await user.save();
     
-    res.redirect("https://aichatbot-frontend-ten.vercel.app/verification-success");
+    res.redirect(`${process.env.REDIRECT_URL}/verification-success`);
 
   } catch (error) {
     res.status(500).send(error.message);

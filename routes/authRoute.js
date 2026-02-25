@@ -23,8 +23,16 @@ router.get("/me", authMiddleware, getProfile);
 //  Update profile route
 router.put("/profile", authMiddleware, updateProfile);
 
+
+
+
+
 //change password route
 router.put("/change-password", authMiddleware, changePassword);
+
+
+
+
 
 // Google authentication
 router.get(
@@ -46,7 +54,7 @@ router.get(
       { expiresIn: "7d" }
     );
 
-    res.redirect(`https://aichatbot-frontend-ten.vercel.app/oauth-success?token=${token}`);
+    res.redirect(`${process.env.REDIRECT_URL}/oauth-success?token=${token}`);
   }
 );
 
@@ -88,7 +96,7 @@ router.post("/forgot-password", async (req, res) => {
 
     await user.save();
 
-    const resetUrl = `https://aichatbot-frontend-ten.vercel.app/reset-password/${resetToken}`;
+    const resetUrl = `${process.env.WORK_UR}/reset-password/${resetToken}`;
 
    await sendResetEmail(user.email, resetUrl, user.name);
     

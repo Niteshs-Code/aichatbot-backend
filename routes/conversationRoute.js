@@ -84,7 +84,7 @@ router.post("/share/:id", authMiddleware, async (req, res) => {
     }
 
     res.json({
-      shareLink: `https://aichatbot-frontend-ten.vercel.app/share/${topic.shareId}`
+      shareLink: `${process.env.WORK_UR}/share/${topic.shareId}`
     });
 
   } catch (error) {

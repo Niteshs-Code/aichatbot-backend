@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
 
 
 export const sendVerificationEmail = async (email, token, name) => {
-  const verificationLink = `https://aichatbot-frontend-ten.vercel.app/api/auth/verify/${token}`;
+  const verificationLink = `${process.env.WORK_UR}/api/auth/verify/${token}`;
 
   await transporter.sendMail({
     from: `"YourApp Team" <${process.env.EMAIL_USER}>`,
