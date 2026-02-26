@@ -14,9 +14,9 @@ export const sendVerificationEmail = async (email, token, name) => {
   const verificationLink = `${process.env.WORK_UR}/api/auth/verify/${token}`;
 
   await transporter.sendMail({
-    from: `"YourApp Team" <${process.env.EMAIL_USER}>`,
+    from: `"Zento AI Team" <${process.env.EMAIL_USER}>`,
     to: email,
-    subject: "Verify Your Email Address",
+    subject: "Verify Your Email Address - Zento AI",
     html: `
       <div style="font-family: Arial, sans-serif; background-color:#f4f6f8; padding:40px 20px;">
         <div style="max-width:600px; margin:auto; background:#ffffff; padding:30px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
@@ -60,9 +60,9 @@ export const sendVerificationEmail = async (email, token, name) => {
 
 export const sendWelcomeEmail = async (email, name) => {
   await transporter.sendMail({
-    from: `"YourApp Team" <${process.env.EMAIL_USER}>`,
+    from: `"Zento AI Team" <${process.env.EMAIL_USER}>`,
     to: email,
-    subject: "Welcome to YourApp 🎉",
+    subject: "Welcome to Zento AI 🎉",
     html: `
       <div style="font-family: Arial; padding: 30px;">
         <h2>Hi ${name}, 👋</h2>
@@ -79,9 +79,9 @@ export const sendWelcomeEmail = async (email, name) => {
 
 export const sendResetEmail = async (email, resetUrl, name) => {
   await transporter.sendMail({
-    from: `"YourApp Team" <${process.env.EMAIL_USER}>`,
+    from: `"Zento AI Team" <${process.env.EMAIL_USER}>`,
     to: email,
-    subject: "Reset Your Password",
+    subject: "Reset Your Zento AI Team Password",
     html: `
       <div style="font-family: Arial, sans-serif; background-color:#f4f6f8; padding:40px 20px;">
         <div style="max-width:600px; margin:auto; background:#ffffff; padding:30px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
