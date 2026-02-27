@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 
-const transporter = nodemailer.createTransport({
+ const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL_USER,
@@ -10,8 +10,11 @@ const transporter = nodemailer.createTransport({
 });
 
 
+
+
+
 export const sendVerificationEmail = async (email, token, name) => {
-  const verificationLink = `${process.env.WORK_UR}/api/auth/verify/${token}`;
+  const verificationLink = `${process.env.WORK_URL}/api/auth/verify/${token}`;
 
   await transporter.sendMail({
     from: `"Zento AI Team" <${process.env.EMAIL_USER}>`,

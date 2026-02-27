@@ -11,6 +11,7 @@ import passport from "./config/passport.js";
 import conversationRoute from './routes/conversationRoute.js'
 
 
+
 connectDB();
 dotenv.config();
 
@@ -53,7 +54,8 @@ app.post("/api/chat",authMiddleware, async (req, res) => {
 app.get("/api/history", authMiddleware, async(req, res)=>{
     const chats = await chat.find({userId: req.user.id});
     res.json(chats);
-})
+});
+
 
 
 
