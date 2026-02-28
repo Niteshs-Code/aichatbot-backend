@@ -122,3 +122,13 @@ export const sendResetEmail = async (email, resetUrl, name) => {
   });
 };
 
+
+
+export const sendTestEmail = async (toEmail) => {
+  await transporter.sendMail({
+    from: `"Zento AI" <${process.env.EMAIL_USER}>`,
+    to: toEmail,
+    subject: "Deploy Test Email",
+    text: "If you received this, SMTP is working on deploy 🚀",
+  });
+};

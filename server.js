@@ -9,7 +9,7 @@ import authRoute from "./routes/authRoute.js";
 import topicRoute from "./routes/topicRoute.js";
 import passport from "./config/passport.js";
 import conversationRoute from './routes/conversationRoute.js'
-
+import { sendTestEmail } from "./utils/sendEmail.js";
 
 
 connectDB();
@@ -48,6 +48,17 @@ app.post("/api/chat",authMiddleware, async (req, res) => {
   } catch (error) {
     console.log("Error:", error.message);
     res.status(500).json({ error: error.message });
+  }
+});
+
+
+app.get("/test-email-deploy", async (req, res) => {
+  try {
+    await sendTestEmail();
+    res.send("Email sent from deploy");
+  } catch (err) {
+    console.log("DEPLOY ERROR:", err);
+    res.status(500).send(err.message);
   }
 });
 

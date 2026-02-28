@@ -25,7 +25,6 @@ export const register = async (req, res) => {
     });
 
     await user.save();
-      console.log("Calling sendVerificationEmail...");
     await sendVerificationEmail(email, verificationToken, name);
 
     res.json({ message: "Registration successful. Please verify your email." });
