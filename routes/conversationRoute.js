@@ -84,7 +84,7 @@ router.post("/share/:id", authMiddleware, async (req, res) => {
     }
 
     res.json({
-      shareLink: `${process.env.WORK_URL}/share/${topic.shareId}`
+      shareLink: `${process.env.REDIRECT_URL}/share/${topic.shareId}`
     });
 
   } catch (error) {
