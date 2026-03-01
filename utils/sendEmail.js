@@ -1,28 +1,30 @@
-import nodemailer from "nodemailer";
+import SibApiV3Sdk from "sib-api-v3-sdk";
 
+const client = SibApiV3Sdk.ApiClient.instance;
 
- const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  family: 4, 
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  }
-});
+const apiKey = client.authentications["api-key"];
+apiKey.apiKey = process.env.BREVO_API_KEY;
 
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
 
 
 export const sendVerificationEmail = async (email, token, name) => {
   const verificationLink = `${process.env.WORK_URL}/api/auth/verify/${token}`;
 
-  await transporter.sendMail({
-    from: `"Zento AI Team" <${process.env.EMAIL_USER}>`,
-    to: email,
-    subject: "Verify Your Email Address - Zento AI",
-    html: `
+  await apiInstance.sendTransacEmail({
+  sender: {
+    name: "Zento AI",
+    email: process.env.EMAIL_USER, // yaha verified gmail
+  },
+  to: [
+    {
+      email: email,
+      name: name,
+    },
+  ],
+  subject: "Verify Your Email Address - Zento AI",
+  htmlContent: `
       <div style="font-family: Arial, sans-serif; background-color:#f4f6f8; padding:40px 20px;">
         <div style="max-width:600px; margin:auto; background:#ffffff; padding:30px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
           
@@ -59,16 +61,27 @@ export const sendVerificationEmail = async (email, token, name) => {
 
         </div>
       </div>
-    `
-  });
+    `,
+});
+  
 };
 
 export const sendWelcomeEmail = async (email, name) => {
-  await transporter.sendMail({
-    from: `"Zento AI Team" <${process.env.EMAIL_USER}>`,
-    to: email,
+
+
+  await apiInstance.sendTransacEmail({
+    sender: {
+    name: "Zento AI",
+    email: process.env.EMAIL_USER, 
+  },
+  to: [
+    {
+      email: email,
+      name: name,
+    },
+  ],
     subject: "Welcome to Zento AI 🎉",
-    html: `
+    htmlContent: `
       <div style="font-family: Arial; padding: 30px;">
         <h2>Hi ${name}, 👋</h2>
         <p>Welcome to <strong>YourApp</strong>!</p>
@@ -83,11 +96,20 @@ export const sendWelcomeEmail = async (email, name) => {
 
 
 export const sendResetEmail = async (email, resetUrl, name) => {
-  await transporter.sendMail({
-    from: `"Zento AI Team" <${process.env.EMAIL_USER}>`,
-    to: email,
+
+  await apiInstance.sendTransacEmail({
+    sender: {
+    name: "Zento AI",
+    email: process.env.EMAIL_USER, // yaha verified gmail
+  },
+  to: [
+    {
+      email: email,
+      name: name,
+    },
+  ],
     subject: "Reset Your Zento AI Team Password",
-    html: `
+    htmlContent: `
       <div style="font-family: Arial, sans-serif; background-color:#f4f6f8; padding:40px 20px;">
         <div style="max-width:600px; margin:auto; background:#ffffff; padding:30px; border-radius:8px; box-shadow:0 4px 10px rgba(0,0,0,0.05);">
           
@@ -126,11 +148,19 @@ export const sendResetEmail = async (email, resetUrl, name) => {
 
 
 
-export const sendTestEmail = async (toEmail) => {
-  await transporter.sendMail({
-    from: `"Zento AI" <${process.env.EMAIL_USER}>`,
-    to: toEmail,
-    subject: "Deploy Test Email",
-    text: "If you received this, SMTP is working on deploy 🚀",
-  });
-};
+// export const sendTestEmail = async (toEmail) => {
+//   await apiInstance.sendTransacEmail({
+//    sender: {
+//     name: "Zento AI",
+//     email: process.env.EMAIL_USER, // yaha verified gmail
+//   },
+//   to: [
+//     {
+//       email: toEmail,
+     
+//     },
+//   ],
+//     subject: "Deploy Test Email",
+//     htmlContent: `<h1>If you received this, SMTP is working on deploy 🚀 </h1>`,
+//   });
+// };
