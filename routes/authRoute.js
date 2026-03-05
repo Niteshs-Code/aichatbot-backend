@@ -6,7 +6,7 @@ import express from "express";
 import User from "../models/userModel.js"
 import authMiddleware from "../middleware/authMiddleware.js";
 import { sendResetEmail } from "../utils/sendEmail.js";
-import { register, login, getProfile, updateProfile, changePassword, verifyEmail  } from "../controllers/authController.js";
+import { register, login, getProfile, updateProfile, changePassword, verifyEmail, removeProfilePic  } from "../controllers/authController.js";
 
 
 
@@ -22,6 +22,9 @@ router.get("/me", authMiddleware, getProfile);
 
 //  Update profile route
 router.put("/profile", authMiddleware, updateProfile);
+
+
+router.delete("/profile/remove", authMiddleware, removeProfilePic);
 
 
 

@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
+import bodyParser from "body-parser";
 import { getAIReply } from "./services/aiService.js";
 import  authMiddleware  from "./middleware/authMiddleware.js";
 import chat from "./models/chatModel.js";
@@ -19,8 +20,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ limit: "10mb", extended: true }));
+app.use(bodyParser.json({ limit: "10mb" }));
+app.use(bodyParser.urlencoded({ limit: "10mb", extended: true }));
+
+
 app.use('/api/auth', authRoute);
 app.use('/api/topics', topicRoute);
 app.use("/api/conversation", conversationRoute);
@@ -52,15 +55,7 @@ app.post("/api/chat",authMiddleware, async (req, res) => {
 });
 
 
-// app.get("/test-email-deploy", async (req, res) => {
-//   try {
-//     await sendTestEmail("feasession8@gmail.com");
-//     res.send("Email sent from deploy");
-//   } catch (err) {
-//     console.log("DEPLOY ERROR:", err);
-//     res.status(500).send(err.message);
-//   }
-// });
+
 
 app.get("/api/history", authMiddleware, async(req, res)=>{
     const chats = await chat.find({userId: req.user.id});

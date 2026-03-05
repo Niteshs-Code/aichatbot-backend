@@ -40,6 +40,10 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
+
+   if (!user) {
+    return res.status(400).json({ message: "User not found" });
+  }
   if (!user.isVerified) {
   return res.status(400).json({ message: "Please verify your email first" });
 }
@@ -151,5 +155,22 @@ export const verifyEmail = async (req, res) => {
   }
 };
 
+export const removeProfilePic = async (req, res) => {
+  try {
 
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.profilePic = "";
+    await user.save();
+
+    res.json({ message: "Profile image removed" });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 

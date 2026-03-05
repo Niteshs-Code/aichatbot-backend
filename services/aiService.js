@@ -18,7 +18,7 @@ export async function getAIReply(message) {
 
   } catch (error) {
     console.log("AI Error:", error);
-    return "AI service error";
+    return "AI service temporarily busy. Please try again.";
   }
 }
 
